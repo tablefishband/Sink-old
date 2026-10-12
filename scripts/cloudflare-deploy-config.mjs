@@ -1,9 +1,9 @@
-require('dotenv').config();
 
 import { readFile, writeFile } from 'node:fs/promises'
 import { parseEnv } from 'node:util'
 import { parse, printParseErrorCode } from 'jsonc-parser'
 import { z } from 'zod'
+import 'dotenv/config'
 
 const rootDir = new URL('../', import.meta.url)
 const sourcePath = new URL('wrangler.jsonc', rootDir)
