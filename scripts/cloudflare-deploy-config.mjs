@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 import { readFile, writeFile } from 'node:fs/promises'
 import { parseEnv } from 'node:util'
 import { parse, printParseErrorCode } from 'jsonc-parser'
@@ -7,6 +9,8 @@ const rootDir = new URL('../', import.meta.url)
 const sourcePath = new URL('wrangler.jsonc', rootDir)
 const envPath = new URL('.env', rootDir)
 const outputPath = new URL('wrangler.deploy.jsonc', rootDir)
+const dbKey = process.env.DEPLOY_D1_DATABASE_ID;
+const kvKey = process.env.DEPLOY_KV_NAMESPACE_ID;
 
 const defaultName = z.preprocess(
   value => typeof value === 'string' && value.trim() === '' ? undefined : value,
@@ -19,8 +23,8 @@ const optionalName = z.preprocess(
 )
 
 const deployEnvSchema = z.object({
-  DEPLOY_D1_DATABASE_ID: z.string().trim().min(1),
-  DEPLOY_KV_NAMESPACE_ID: z.string().trim().min(1),
+  DEPLOY_D1_DATABASE_ID: z.string().trim().min(1).default(dbKey),
+  DEPLOY_KV_NAMESPACE_ID: z.string().trim().min(1).default(kvKey),
   // Optional Wrangler preview binding; falls back to DEPLOY_KV_NAMESPACE_ID
   DEPLOY_KV_PREVIEW_NAMESPACE_ID: optionalName,
   DEPLOY_D1_DATABASE_NAME: defaultName,
