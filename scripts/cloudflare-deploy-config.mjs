@@ -19,8 +19,8 @@ const optionalName = z.preprocess(
 )
 
 const deployEnvSchema = z.object({
-  DEPLOY_D1_DATABASE_ID: z.string().trim().min(1),
-  DEPLOY_KV_NAMESPACE_ID: z.string().trim().min(1),
+  DEPLOY_D1_DATABASE_ID: z.string().trim().min(1).default('YOUR_D1_DATABASE_ID'),
+  DEPLOY_KV_NAMESPACE_ID: z.string().trim().min(1).default('YOUR_KV_NAMESPACE_ID'),
   // Optional Wrangler preview binding; falls back to DEPLOY_KV_NAMESPACE_ID
   DEPLOY_KV_PREVIEW_NAMESPACE_ID: optionalName,
   DEPLOY_D1_DATABASE_NAME: defaultName,
