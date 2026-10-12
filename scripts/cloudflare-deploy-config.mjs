@@ -9,11 +9,12 @@ const sourcePath = new URL('wrangler.jsonc', rootDir)
 const envPath = new URL('.env', rootDir)
 const outputPath = new URL('wrangler.deploy.jsonc', rootDir)
 const dbKey = process.env.DEPLOY_D1_DATABASE_ID;
+const dbName = process.env.DEPLOY_D1_DATABASE_NAME;
 const kvKey = process.env.DEPLOY_KV_NAMESPACE_ID;
 
 const defaultName = z.preprocess(
   value => typeof value === 'string' && value.trim() === '' ? undefined : value,
-  z.string().trim().min(1).default('sink-db'),
+  z.string().trim().min(1).default(dbName),
 )
 
 const optionalName = z.preprocess(
