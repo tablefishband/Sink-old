@@ -14,7 +14,7 @@ const kvKey = process.env.DEPLOY_KV_NAMESPACE_ID;
 
 const defaultName = z.preprocess(
   value => typeof value === 'string' && value.trim() === '' ? undefined : value,
-  z.string().trim().min(1).default(dbName),
+  z.string().trim().min(1).default("sink2-db"),
 )
 
 const optionalName = z.preprocess(
